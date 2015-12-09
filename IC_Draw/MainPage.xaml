@@ -6,31 +6,74 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    MinHeight="530"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid VerticalAlignment="Center" >
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualState000">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="VisualState600">
+                    <VisualState.Setters>
+                        <Setter Target="DrawGrid.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="HistoryGrid.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="HistoryGrid.(Grid.Column)" Value="1"/>
+                        <Setter Target="HistoryGrid.(Grid.Row)" Value="0"/>
+                        <Setter Target="HistoryGrid.(Grid.RowSpan)" Value="2"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!--<TextBlock HorizontalAlignment="Center" Grid.Row="0" Name="numTextBlock" Text="000" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>-->
-        <Grid HorizontalAlignment="Center" Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="120"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Name="numTextBlock1" Grid.Column="0" Text="8" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>
-            <TextBlock Name="numTextBlock2" Grid.Column="1" Text="8" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>
-            <TextBlock Name="numTextBlock3" Grid.Column="2" Text="8" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>
+
+        <Grid x:Name="DrawGrid" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--<TextBlock HorizontalAlignment="Center" Grid.Row="0" Name="numTextBlock" Text="000" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>-->
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="numTextBlock1" Grid.Column="0" Text="8" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>
+                <TextBlock x:Name="numTextBlock2" Grid.Column="1" Text="8" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>
+                <TextBlock x:Name="numTextBlock3" Grid.Column="2" Text="8" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="startbutton" Content="开始" Margin="5" MaxWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="0" Click="startbutton_Click"/>
+                <Button x:Name="finshbutton" Content="结束" IsEnabled="False" Margin="5" MaxWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" Click="finshbutton_Click"/>
+            </Grid>
         </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Button Name="startbutton" Content="开始" Margin="5" MaxWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="0" Click="startbutton_Click"/>
-            <Button Name="finshbutton" Content="结束" IsEnabled="False" Margin="5" MaxWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" Click="finshbutton_Click"/>
+
+
+        <Grid x:Name="HistoryGrid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+            <ListView x:Name="numListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding num}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </Grid>
 </Page>

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using IC_Draw.Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -27,12 +29,17 @@ namespace IC_Draw
     public sealed partial class MainPage : Page
     {
         static int finshnum = 300; //总人数
-        List<string> usenum = new List<string>();//已经抽到过的人
+        //List<string> usenum = new List<string>();//已经抽到过的人
         static bool isdorand = false;
+        public ObservableCollection<NumList> numlist = new ObservableCollection<NumList>();
 
         public MainPage()
         {
             this.InitializeComponent();
+            numListView.ItemsSource = numlist;
+            this.SizeChanged += (s, e) =>
+            {
+            };
         }
 
         private void startbutton_Click(object sender, RoutedEventArgs e)
@@ -46,26 +53,18 @@ namespace IC_Draw
         private async void doRand()
         {
             Random r = new Random();
+            var numlistarray = numlist.ToList();
             while (isdorand)
             {
                 string temp = await getRand(r);
-
-                string s = usenum.Find(usenum => usenum.Equals(temp));
+                NumList s = numlistarray.Find(p => p.num.Equals(temp));
                 Debug.WriteLine(s);
-                //while (s != null)
-                //{
                 if (s == null)
                 {
                     numTextBlock1.Text = temp.Substring(0, 1);
                     numTextBlock2.Text = temp.Substring(1, 1);
                     numTextBlock3.Text = temp.Substring(2, 1);
                 }
-                //    else
-                //    {
-                //        temp = await getRand(r);
-                //        s = usenum.Find(usenum => usenum.Equals(temp));
-                //    }
-                //}
                 await Task.Delay(50);
             }
         }
@@ -73,7 +72,7 @@ namespace IC_Draw
         private void finshbutton_Click(object sender, RoutedEventArgs e)
         {
             isdorand = false;
-            usenum.Add(numTextBlock1.Text + numTextBlock2.Text + numTextBlock3.Text);
+            numlist.Add(new NumList { num = numTextBlock1.Text + numTextBlock2.Text + numTextBlock3.Text });
             finshbutton.IsEnabled = false;
             startbutton.IsEnabled = true;
         }
