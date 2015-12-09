@@ -44,6 +44,13 @@ namespace IC_Draw
 
         private void startbutton_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (finshnumTextBox.Text != "")
+                    finshnum = int.Parse(finshnumTextBox.Text);
+            }
+            catch (Exception) {}
+          
             isdorand = true;
             doRand();
             finshbutton.IsEnabled = true;
