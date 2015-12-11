@@ -112,6 +112,12 @@ namespace IC_Draw
            });
         }
 
-
+        private void czAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            numlist.Clear();
+            numTextBlock1.Text = "8";
+            numTextBlock2.Text = "8";
+            numTextBlock3.Text = "8";
+        }
     }
 }
