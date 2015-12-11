@@ -57,6 +57,7 @@ namespace IC_Draw
             doRand();
             finshbutton.IsEnabled = true;
             startbutton.IsEnabled = false;
+            finshnumTextBox.IsEnabled = false;
         }
 
         private async void doRand()
@@ -86,6 +87,7 @@ namespace IC_Draw
             //numlist.Add(new NumList { num = numTextBlock1.Text + numTextBlock2.Text + numTextBlock3.Text });
             finshbutton.IsEnabled = false;
             startbutton.IsEnabled = true;
+            finshnumTextBox.IsEnabled = true;
         }
 
 
