@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -42,6 +43,11 @@ namespace IC_Draw
                 if (e.NewSize.Width > 600)
                     historyLine.Y2 = e.NewSize.Height;
             };
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                StatusBar statusBar = StatusBar.GetForCurrentView();
+                statusBar.HideAsync();
+            }
         }
 
         private void startbutton_Click(object sender, RoutedEventArgs e)
@@ -49,10 +55,10 @@ namespace IC_Draw
             try
             {
                 if (finshnumTextBox.Text != "")
-                    finshnum = int.Parse(finshnumTextBox.Text)+1;
+                    finshnum = int.Parse(finshnumTextBox.Text) + 1;
             }
-            catch (Exception) {}
-          
+            catch (Exception) { }
+
             isdorand = true;
             doRand();
             finshbutton.IsEnabled = true;
@@ -77,7 +83,7 @@ namespace IC_Draw
                 }
                 await Task.Delay(50);
             }
-            numlist.Insert(0,new NumList { num = numTextBlock1.Text + numTextBlock2.Text + numTextBlock3.Text });
+            numlist.Insert(0, new NumList { num = numTextBlock1.Text + numTextBlock2.Text + numTextBlock3.Text });
 
         }
 
