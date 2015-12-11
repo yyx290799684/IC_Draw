@@ -49,7 +49,7 @@ namespace IC_Draw
             try
             {
                 if (finshnumTextBox.Text != "")
-                    finshnum = int.Parse(finshnumTextBox.Text);
+                    finshnum = int.Parse(finshnumTextBox.Text)+1;
             }
             catch (Exception) {}
           
