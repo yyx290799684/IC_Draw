@@ -12,6 +12,9 @@
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="VisualState000">
+                    <VisualState.Setters>
+                        <Setter Target="historyLine.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
@@ -39,15 +42,19 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="DrawGrid"  VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" >
+        <Grid x:Name="DrawGrid" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" >
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox Name="finshnumTextBox" InputScope="Number" Grid.Row="0" PlaceholderText="请输入总人数"/>
+            <Grid Grid.Row="0" Background="#7F542D7C" Height="40">
+                <TextBlock FontSize="20" Margin="10,0,0,0" Foreground="#333" VerticalAlignment="Center" Text="抽奖"/>
+            </Grid>
+            <TextBox Name="finshnumTextBox" Margin="10" InputScope="Number" Grid.Row="1"  PlaceholderText="请输入总人数"/>
             <!--<TextBlock HorizontalAlignment="Center" Grid.Row="0" Name="numTextBlock" Text="000" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>-->
-            <Grid Grid.Row="1" HorizontalAlignment="Center">
+            <Grid Grid.Row="2" Margin="10" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="120"/>
@@ -57,25 +64,37 @@
                 <TextBlock x:Name="numTextBlock2" Grid.Column="1" Text="8" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>
                 <TextBlock x:Name="numTextBlock3" Grid.Column="2" Text="8" FontSize="200" FontFamily="Font/DS-DIGIT.TTF#DS-Digital"/>
             </Grid>
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="3" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="startbutton" Content="开始" Margin="5" MaxWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="0" Click="startbutton_Click"/>
-                <Button x:Name="finshbutton" Content="结束" IsEnabled="False" Margin="5" MaxWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" Click="finshbutton_Click"/>
+                <Button x:Name="startbutton" Background="#7F542D7C" Content="开始" Margin="5" MaxWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="0" Click="startbutton_Click"/>
+                <Button x:Name="finshbutton" Background="#7F542D7C" Content="结束" IsEnabled="False" Margin="5" MaxWidth="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" Click="finshbutton_Click"/>
             </Grid>
         </Grid>
 
 
         <Grid x:Name="HistoryGrid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-            <ListView x:Name="numListView">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding num}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#7F542D7C" VerticalAlignment="Top" Height="40">
+                    <TextBlock FontSize="20" Margin="10,0,0,0" Foreground="#333" VerticalAlignment="Center" Text="历史纪录"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Line Name="historyLine" Stroke="Gray" StrokeThickness="1"></Line>
+                    <ListView x:Name="numListView" Grid.Row="1">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding num}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

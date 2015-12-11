@@ -39,6 +39,8 @@ namespace IC_Draw
             numListView.ItemsSource = numlist;
             this.SizeChanged += (s, e) =>
             {
+                if (e.NewSize.Width > 600)
+                    historyLine.Y2 = e.NewSize.Height;
             };
         }
 
@@ -74,12 +76,14 @@ namespace IC_Draw
                 }
                 await Task.Delay(50);
             }
+            numlist.Insert(0,new NumList { num = numTextBlock1.Text + numTextBlock2.Text + numTextBlock3.Text });
+
         }
 
         private void finshbutton_Click(object sender, RoutedEventArgs e)
         {
             isdorand = false;
-            numlist.Add(new NumList { num = numTextBlock1.Text + numTextBlock2.Text + numTextBlock3.Text });
+            //numlist.Add(new NumList { num = numTextBlock1.Text + numTextBlock2.Text + numTextBlock3.Text });
             finshbutton.IsEnabled = false;
             startbutton.IsEnabled = true;
         }
